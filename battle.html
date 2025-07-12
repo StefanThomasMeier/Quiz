@@ -7,10 +7,16 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
+  <div class="container battle-container">
     <h1>Battle-Modus</h1>
-    <button id="battle-btn">Battle starten</button>
-    <div id="battle" class="quiz-card"></div>
+    <img id="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=faGe-Quiz-Battle" alt="QR-Code" />
+    <div class="player-count">
+      <label for="players">Anzahl Mitspieler:</label>
+      <input type="number" id="players" min="1" value="2">
+    </div>
+    <button class="start-btn" id="startBtn">Start</button>
+    <a href="index.html" class="back-btn">Zurück</a>
+
   </div>
   <script type="module" src="battle.js"></script>
 </body>

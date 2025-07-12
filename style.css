@@ -95,3 +95,31 @@ body {
     text-align: left;
     margin-top: 20px;
   }
+/* Battle page styles */
+.battle-container img {
+  margin: 20px 0;
+}
+
+.player-count {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.start-btn {
+  font-size: 1.5rem;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 10px;
+  background: #00796b;
+  color: #fff;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #00695c;
+  font-size: 0.9rem;
+}
