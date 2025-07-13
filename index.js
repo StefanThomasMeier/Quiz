@@ -1,12 +1,14 @@
-import { games } from './games.js';
+import { getGames, saveGames } from './games.js';
 
 function handleToken() {
   const params = new URLSearchParams(window.location.search);
   const token = params.get('token');
   if (token) {
+    const games = getGames();
     const game = games.find(g => g.token === token);
     if (game) {
-      game.anzahlSpiele = (game.anzahlSpiele || 0) + 1;
+      game.playerCount = (game.playerCount || 0) + 1;
+      saveGames(games);
     }
     window.location.href = `battle.html?token=${token}`;
   }

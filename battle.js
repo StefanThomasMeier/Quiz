@@ -1,5 +1,5 @@
 import { questions } from './questions.js';
-import { games } from './games.js';
+import { getGames, saveGames } from './games.js';
 
 const container = document.querySelector('.battle-container');
 const qrImg = document.getElementById('qr');
@@ -13,6 +13,7 @@ function getJoinUrl(token) {
 
 const params = new URLSearchParams(window.location.search);
 const tokenParam = params.get('token');
+let games = getGames();
 
 if (tokenParam) {
   startBtn.style.display = 'none';
@@ -33,6 +34,7 @@ function shuffle(arr) {
 }
 
 function createGame() {
+  games = getGames();
   const id = games.length + 1;
   const token = Math.random().toString(36).substring(2, 10);
   const frageIds = shuffle([...questions])
@@ -43,12 +45,13 @@ function createGame() {
   const game = {
     id,
     token,
-    anzahlSpiele: 0,
+    playerCount: 1,
     fragen: frageIds,
     datestamp
   };
 
   games.push(game);
+  saveGames(games);
   const joinUrl = getJoinUrl(token);
   qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(joinUrl)}`;
   renderGame(game);
