@@ -13,12 +13,12 @@ if (siteQrContainer) {
 
 function getJoinUrl(token) {
   const url = new URL('index.html', location.href);
-  url.searchParams.set('token', token);
+  url.searchParams.set('spiele-Token', token);
   return url.href;
 }
 
 const params = new URLSearchParams(window.location.search);
-const tokenParam = params.get('token');
+const tokenParam = params.get('spiele-Token');
 
 let games = getGames();
 
