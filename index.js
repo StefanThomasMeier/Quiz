@@ -1,6 +1,8 @@
 
 import { getGames, saveGames } from './games.js';
 
+const CURRENT_TOKEN_KEY = 'currentGameToken';
+
 function handleToken() {
   const params = new URLSearchParams(window.location.search);
   const token = params.get('spiele-Token');
@@ -10,8 +12,8 @@ function handleToken() {
     if (game) {
       game.playerCount = (game.playerCount || 0) + 1;
       saveGames(games);
-
     }
+    localStorage.setItem(CURRENT_TOKEN_KEY, token);
     window.location.href = `battle.html?spiele-Token=${token}`;
   }
 }
