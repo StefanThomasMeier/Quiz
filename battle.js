@@ -23,6 +23,14 @@ if (tokenParam) {
     renderGame(game);
   } else {
     container.innerHTML = '<p>Spiel nicht gefunden.</p>';
+    startBtn.style.display = 'inline-block';
+    container.appendChild(startBtn);
+    startBtn.addEventListener('click', createGame);
+    const backLink = document.createElement('a');
+    backLink.href = 'index.html';
+    backLink.textContent = 'Zurück';
+    backLink.className = 'back-btn';
+    container.appendChild(backLink);
   }
 } else {
   startBtn.addEventListener('click', createGame);
