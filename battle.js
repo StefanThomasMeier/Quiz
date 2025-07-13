@@ -3,7 +3,13 @@ import { getGames, saveGames } from './games.js';
 
 const container = document.querySelector('.battle-container');
 const qrImg = document.getElementById('qr');
+const siteQrImg = document.getElementById('siteQr');
 const startBtn = document.getElementById('startBtn');
+
+// Display a QR code for the main website
+if (siteQrImg) {
+  siteQrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent('https://mei-deo.ch')}`;
+}
 
 function getJoinUrl(token) {
   const url = new URL('index.html', location.href);
