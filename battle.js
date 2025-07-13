@@ -2,13 +2,13 @@ import { questions } from './questions.js';
 import { getGames, saveGames } from './games.js';
 
 const container = document.querySelector('.battle-container');
-const qrImg = document.getElementById('qr');
-const siteQrImg = document.getElementById('siteQr');
+const qrContainer = document.getElementById('qr');
+const siteQrContainer = document.getElementById('siteQr');
 const startBtn = document.getElementById('startBtn');
 
 // Display a QR code for the main website
-if (siteQrImg) {
-  siteQrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent('https://mei-deo.ch')}`;
+if (siteQrContainer) {
+  new QRCode(siteQrContainer, 'https://www.mei-deo.ch');
 }
 
 function getJoinUrl(token) {
@@ -28,7 +28,10 @@ if (tokenParam) {
   const game = games.find(g => g.token === tokenParam);
   if (game) {
     const joinUrl = getJoinUrl(tokenParam);
-    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(joinUrl)}`;
+    if (qrContainer) {
+      qrContainer.innerHTML = '';
+      new QRCode(qrContainer, joinUrl);
+    }
     renderGame(game);
   } else {
     container.innerHTML = '<p>Spiel nicht gefunden.</p>';
@@ -72,7 +75,10 @@ function createGame() {
   saveGames(games);
 
   const joinUrl = getJoinUrl(token);
-  qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(joinUrl)}`;
+  if (qrContainer) {
+    qrContainer.innerHTML = '';
+    new QRCode(qrContainer, joinUrl);
+  }
   renderGame(game);
 }
 
