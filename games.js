@@ -1,3 +1,4 @@
+
 const STORAGE_KEY = 'games';
 
 export function getGames() {
@@ -15,3 +16,4 @@ export function saveGames(arr) {
 }
 
 export const games = getGames();
+
