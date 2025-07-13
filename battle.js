@@ -14,18 +14,18 @@ function updateQr(container, url) {
 
 function getIndexUrl(token) {
   const url = new URL('index.html', location.href);
-  if (token) url.searchParams.set('spiele-Token', token);
+  if (token) url.searchParams.set('tokenid', token);
   return url.href;
 }
 
 function getJoinUrl(token) {
   const url = new URL('index.html', location.href);
-  url.searchParams.set('spiele-Token', token);
+  url.searchParams.set('tokenid', token);
   return url.href;
 }
 
 const params = new URLSearchParams(window.location.search);
-const tokenParam = params.get('spiele-Token');
+const tokenParam = params.get('tokenid');
 
 updateQr(siteQrContainer, getIndexUrl(tokenParam));
 
