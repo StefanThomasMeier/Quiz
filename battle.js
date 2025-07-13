@@ -6,9 +6,16 @@ const qrContainer = document.getElementById('qr');
 const siteQrContainer = document.getElementById('siteQr');
 const startBtn = document.getElementById('startBtn');
 
-// Display a QR code for the main website
-if (siteQrContainer) {
-  new QRCode(siteQrContainer, 'https://www.mei-deo.ch');
+function updateQr(container, url) {
+  if (!container) return;
+  container.innerHTML = '';
+  new QRCode(container, url);
+}
+
+function getIndexUrl(token) {
+  const url = new URL('index.html', location.href);
+  if (token) url.searchParams.set('spiele-Token', token);
+  return url.href;
 }
 
 function getJoinUrl(token) {
@@ -20,6 +27,8 @@ function getJoinUrl(token) {
 const params = new URLSearchParams(window.location.search);
 const tokenParam = params.get('spiele-Token');
 
+updateQr(siteQrContainer, getIndexUrl(tokenParam));
+
 let games = getGames();
 
 
@@ -28,10 +37,8 @@ if (tokenParam) {
   const game = games.find(g => g.token === tokenParam);
   if (game) {
     const joinUrl = getJoinUrl(tokenParam);
-    if (qrContainer) {
-      qrContainer.innerHTML = '';
-      new QRCode(qrContainer, joinUrl);
-    }
+    updateQr(qrContainer, joinUrl);
+    updateQr(siteQrContainer, joinUrl);
     renderGame(game);
   } else {
     container.innerHTML = '<p>Spiel nicht gefunden.</p>';
@@ -75,10 +82,8 @@ function createGame() {
   saveGames(games);
 
   const joinUrl = getJoinUrl(token);
-  if (qrContainer) {
-    qrContainer.innerHTML = '';
-    new QRCode(qrContainer, joinUrl);
-  }
+  updateQr(qrContainer, joinUrl);
+  updateQr(siteQrContainer, joinUrl);
   renderGame(game);
 }
 
