@@ -15,12 +15,14 @@ function updateQr(container, url) {
 function getIndexUrl(token) {
   const url = new URL('index.html', location.href);
   url.searchParams.set('tokenid', token || 'unbekannt');
+
   return url.href;
 }
 
 function getJoinUrl(token) {
   const url = new URL('index.html', location.href);
   url.searchParams.set('tokenid', token || 'unbekannt');
+
   return url.href;
 }
 
