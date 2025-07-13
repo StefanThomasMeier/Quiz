@@ -96,8 +96,41 @@ body {
     margin-top: 20px;
   }
 /* Battle page styles */
+.battle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
 .battle-container img {
   margin: 20px 0;
+}
+
+#qr, #siteQr {
+  margin: 20px auto;
+}
+
+#qr canvas, #qr img,
+#siteQr canvas, #siteQr img {
+  display: block;
+  margin: 0 auto;
+}
+
+.player-count {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.player-count input {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
 }
 
 .player-count {
