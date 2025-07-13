@@ -63,6 +63,7 @@ function createGame() {
   };
 
   games.push(game);
+  saveGames(games);
 
   const joinUrl = getJoinUrl(token);
   qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(joinUrl)}`;
@@ -70,5 +71,11 @@ function createGame() {
 }
 
 function renderGame(game) {
-  container.innerHTML = `<pre>${JSON.stringify(game, null, 2)}</pre>`;
+  let pre = document.getElementById('gameInfo');
+  if (!pre) {
+    pre = document.createElement('pre');
+    pre.id = 'gameInfo';
+    container.appendChild(pre);
+  }
+  pre.textContent = JSON.stringify(game, null, 2);
 }
