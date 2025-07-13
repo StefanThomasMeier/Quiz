@@ -5,7 +5,7 @@ const CURRENT_TOKEN_KEY = 'currentGameToken';
 
 function handleToken() {
   const params = new URLSearchParams(window.location.search);
-  const token = params.get('spiele-Token');
+  const token = params.get('tokenid');
   if (token) {
     const games = getGames();
     const game = games.find(g => g.token === token);
@@ -14,7 +14,7 @@ function handleToken() {
       saveGames(games);
     }
     localStorage.setItem(CURRENT_TOKEN_KEY, token);
-    window.location.href = `battle.html?spiele-Token=${token}`;
+    window.location.href = `battle.html?tokenid=${token}`;
   }
 }
 

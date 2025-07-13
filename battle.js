@@ -14,18 +14,18 @@ function updateQr(container, url) {
 
 function getIndexUrl(token) {
   const url = new URL('index.html', location.href);
-  if (token) url.searchParams.set('spiele-Token', token);
+  url.searchParams.set('tokenid', token || 'unbekannt');
   return url.href;
 }
 
 function getJoinUrl(token) {
   const url = new URL('index.html', location.href);
-  url.searchParams.set('spiele-Token', token);
+  url.searchParams.set('tokenid', token || 'unbekannt');
   return url.href;
 }
 
 const params = new URLSearchParams(window.location.search);
-const tokenParam = params.get('spiele-Token');
+const tokenParam = params.get('tokenid');
 
 updateQr(siteQrContainer, getIndexUrl(tokenParam));
 
@@ -38,7 +38,7 @@ if (tokenParam) {
   if (game) {
     const joinUrl = getJoinUrl(tokenParam);
     updateQr(qrContainer, joinUrl);
-    updateQr(siteQrContainer, joinUrl);
+    updateQr(siteQrContainer, getIndexUrl(tokenParam));
     renderGame(game);
   } else {
     container.innerHTML = '<p>Spiel nicht gefunden.</p>';
@@ -83,7 +83,7 @@ function createGame() {
 
   const joinUrl = getJoinUrl(token);
   updateQr(qrContainer, joinUrl);
-  updateQr(siteQrContainer, joinUrl);
+  updateQr(siteQrContainer, getIndexUrl(token));
   renderGame(game);
 }
 
