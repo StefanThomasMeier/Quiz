@@ -1,3 +1,4 @@
+
 import { getGames, saveGames } from './games.js';
 
 function handleToken() {
@@ -9,6 +10,7 @@ function handleToken() {
     if (game) {
       game.playerCount = (game.playerCount || 0) + 1;
       saveGames(games);
+
     }
     window.location.href = `battle.html?token=${token}`;
   }
