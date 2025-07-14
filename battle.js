@@ -6,6 +6,8 @@ const qrContainer = document.getElementById('qr');
 const siteQrContainer = document.getElementById('siteQr');
 const startBtn = document.getElementById('startBtn');
 const gameDetailsEl = document.getElementById('gameDetails');
+const devInfoEl = document.getElementById('devInfo');
+
 
 function updateQr(container, url) {
   if (!container) return;
@@ -33,6 +35,8 @@ const tokenParam = params.get('tokenid');
 updateQr(siteQrContainer, getIndexUrl(tokenParam));
 
 let games = getGames();
+
+renderDevInfo(null);
 
 
 if (tokenParam) {
@@ -95,5 +99,16 @@ function renderGame(game) {
     gameDetailsEl.innerHTML = `
       <p>Spielnr.: ${game.id}</p>
       <p>Spieleranzahl: ${game.playerCount}</p>`;
+  }
+  renderDevInfo(game);
+}
+
+function renderDevInfo(game) {
+  if (!devInfoEl) return;
+  try {
+    devInfoEl.textContent = JSON.stringify({ game, games }, null, 2);
+  } catch (err) {
+    devInfoEl.textContent = err.toString();
+
   }
 }
