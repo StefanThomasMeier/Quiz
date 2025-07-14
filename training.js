@@ -73,7 +73,7 @@ function showResult() {
   quizContainer.appendChild(list);
 
   const backLink = document.createElement('a');
-  backLink.textContent = 'Zurück zum Index';
+  backLink.textContent = 'Nochmals';
   backLink.href = 'index.html';
   backLink.className = 'back-btn';
   quizContainer.appendChild(backLink);
