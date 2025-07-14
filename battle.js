@@ -8,6 +8,7 @@ const startBtn = document.getElementById('startBtn');
 const gameDetailsEl = document.getElementById('gameDetails');
 const devInfoEl = document.getElementById('devInfo');
 
+
 function updateQr(container, url) {
   if (!container) return;
   container.innerHTML = '';
@@ -108,5 +109,6 @@ function renderDevInfo(game) {
     devInfoEl.textContent = JSON.stringify({ game, games }, null, 2);
   } catch (err) {
     devInfoEl.textContent = err.toString();
+
   }
 }
