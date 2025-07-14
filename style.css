@@ -156,3 +156,20 @@ body {
   color: #00695c;
   font-size: 0.9rem;
 }
+
+.game-info {
+  font-size: 1.1rem;
+  color: #004d40;
+}
+
+.dev-info {
+  margin-top: 20px;
+  padding: 10px;
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  width: 90%;
+  max-width: 800px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  text-align: left;
+}

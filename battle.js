@@ -5,6 +5,8 @@ const container = document.querySelector('.battle-container');
 const qrContainer = document.getElementById('qr');
 const siteQrContainer = document.getElementById('siteQr');
 const startBtn = document.getElementById('startBtn');
+const gameDetailsEl = document.getElementById('gameDetails');
+const devInfoEl = document.getElementById('devInfo');
 
 function updateQr(container, url) {
   if (!container) return;
@@ -32,6 +34,8 @@ const tokenParam = params.get('tokenid');
 updateQr(siteQrContainer, getIndexUrl(tokenParam));
 
 let games = getGames();
+
+renderDevInfo(null);
 
 
 if (tokenParam) {
@@ -90,11 +94,19 @@ function createGame() {
 }
 
 function renderGame(game) {
-  let pre = document.getElementById('gameInfo');
-  if (!pre) {
-    pre = document.createElement('pre');
-    pre.id = 'gameInfo';
-    container.appendChild(pre);
+  if (gameDetailsEl) {
+    gameDetailsEl.innerHTML = `
+      <p>Spielnr.: ${game.id}</p>
+      <p>Spieleranzahl: ${game.playerCount}</p>`;
   }
-  pre.textContent = JSON.stringify(game, null, 2);
+  renderDevInfo(game);
+}
+
+function renderDevInfo(game) {
+  if (!devInfoEl) return;
+  try {
+    devInfoEl.textContent = JSON.stringify({ game, games }, null, 2);
+  } catch (err) {
+    devInfoEl.textContent = err.toString();
+  }
 }
