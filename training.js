@@ -72,10 +72,11 @@ function showResult() {
   }
   quizContainer.appendChild(list);
 
-  const restartBtn = document.createElement('button');
-  restartBtn.textContent = 'Nochmals üben';
-  restartBtn.addEventListener('click', startQuiz);
-  quizContainer.appendChild(restartBtn);
+  const backLink = document.createElement('a');
+  backLink.textContent = 'Zurück zum Index';
+  backLink.href = 'index.html';
+  backLink.className = 'back-btn';
+  quizContainer.appendChild(backLink);
 }
 
 startQuiz();
