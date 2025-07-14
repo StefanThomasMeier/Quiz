@@ -5,6 +5,7 @@ const container = document.querySelector('.battle-container');
 const qrContainer = document.getElementById('qr');
 const siteQrContainer = document.getElementById('siteQr');
 const startBtn = document.getElementById('startBtn');
+const gameDetailsEl = document.getElementById('gameDetails');
 
 function updateQr(container, url) {
   if (!container) return;
@@ -90,11 +91,9 @@ function createGame() {
 }
 
 function renderGame(game) {
-  let pre = document.getElementById('gameInfo');
-  if (!pre) {
-    pre = document.createElement('pre');
-    pre.id = 'gameInfo';
-    container.appendChild(pre);
+  if (gameDetailsEl) {
+    gameDetailsEl.innerHTML = `
+      <p>Spielnr.: ${game.id}</p>
+      <p>Spieleranzahl: ${game.playerCount}</p>`;
   }
-  pre.textContent = JSON.stringify(game, null, 2);
 }
