@@ -1,4 +1,5 @@
 import { questions } from './questions.js';
+import { getCustomQuestions, addReport } from './storage.js';
 
 const quizContainer = document.getElementById('quiz');
 
@@ -12,7 +13,13 @@ function shuffle(arr) {
 }
 
 function startQuiz() {
-  selected = shuffle([...questions]).slice(0, 5);
+  const base = [...questions];
+  const extras = getCustomQuestions();
+  extras.forEach(q => {
+    const idx = base.findIndex(b => b.id === q.id);
+    if (idx >= 0) base[idx] = q; else base.push(q);
+  });
+  selected = shuffle(base).slice(0, 5);
   current = 0;
   score = 0;
   results = [];
@@ -37,6 +44,16 @@ function showQuestion() {
   });
 
   questionEl.appendChild(answersEl);
+  const reportBtn = document.createElement("button");
+  reportBtn.textContent = "Problem melden";
+  reportBtn.addEventListener("click", () => {
+    const msg = prompt("Was ist das Problem?");
+    if (msg) {
+      addReport({ question: q, message: msg });
+      alert("Danke für deine Meldung!");
+    }
+  });
+  questionEl.appendChild(reportBtn);
   quizContainer.appendChild(questionEl);
 }
 
