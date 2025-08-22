@@ -1,5 +1,15 @@
 import { questions } from './questions.js';
 import { getGames, saveGames } from './games.js';
+import { getCustomQuestions, addReport } from './storage.js';
+function allQuestions() {
+  const base = [...questions];
+  const extras = getCustomQuestions();
+  extras.forEach(q => {
+    const idx = base.findIndex(b => b.id === q.id);
+    if (idx >= 0) base[idx] = q; else base.push(q);
+  });
+  return base;
+}
 
 const CURRENT_TOKEN_KEY = 'currentGameToken';
 const CURRENT_PLAYER_KEY = 'currentPlayerId';
@@ -61,7 +71,7 @@ function createGame() {
   games = getGames();
   const id = games.length + 1;
   const token = Math.random().toString(36).substring(2, 10);
-  const frageIds = shuffle([...questions])
+  const frageIds = shuffle(allQuestions())
     .slice(0, 5)
     .map(q => q.id);
   const datestamp = new Date().toISOString();
@@ -145,7 +155,7 @@ function startPolling() {
 
 function startQuiz() {
   quizStarted = true;
-  selected = game.fragen.map(id => questions.find(q => q.id === id));
+  selected = game.fragen.map(id => allQuestions().find(q => q.id === id));
   current = 0;
   score = 0;
   showQuestion();
@@ -165,6 +175,13 @@ function showQuestion() {
     answersEl.appendChild(btn);
   });
   questionEl.appendChild(answersEl);
+  const reportBtn = document.createElement("button");
+  reportBtn.textContent = "Problem melden";
+  reportBtn.addEventListener("click", () => {
+    const msg = prompt("Was ist das Problem?");
+    if (msg) { addReport({ question: q, message: msg }); alert("Danke für deine Meldung!"); }
+  });
+  questionEl.appendChild(reportBtn);
   quizEl.appendChild(questionEl);
 }
 
